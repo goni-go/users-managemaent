@@ -33,7 +33,11 @@ export const extractPassword = (req: Request, res: Response, next: NextFunction)
 
     try {
         const decoded = jwt.verify(clientJWT, config.token.secret);
-        res.locals.client = (decoded as JwtPayload).client;
+        const { client: password } = decoded as JwtPayload;
+        if (!password) {
+            return res.status(StatusCodes.UNAUTHORIZED).json({ message: 'Token must contain the password' });
+        }
+        res.locals.client = password;
         return next();
     } catch (error) {
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ messgae: ERROR_MSG, more_info: error });

@@ -23,7 +23,7 @@ const app = express();
 // log request - response
 app.use((req, res, next) => {
     logger.info(`METHOD: [${req.method}] - URL: [${req.url}]`); // log request
-    res.on('finish', () => { logger.info(`METHOD: [${req.method}] - URL: [${req.url}] - BODY - [${req.body}] - STATUS: [${res.statusCode}]`); }); // log response
+    res.on('finish', () => { logger.info(`METHOD: [${req.method}] - URL: [${req.url}] - STATUS: [${res.statusCode}]`); }); // log response
     next();
 });
 
