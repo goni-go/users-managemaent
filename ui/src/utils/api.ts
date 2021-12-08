@@ -24,7 +24,7 @@ export const register = async (user: FullUserType) => {
     return response.data;
 }
 
-export const fetchUsersPagination = async (pageNumber: number, pageSize: number, token: string): Promise<UserType[]> => {
+export const fetchUsersPagination = async (pageNumber: number, token: string): Promise<UserType[]> => {
     const headers = {
         'Access-Control-Allow-Origin': '*',
         'Content-Type': 'application/json',
@@ -34,7 +34,7 @@ export const fetchUsersPagination = async (pageNumber: number, pageSize: number,
     const response = await axios.get(`${config.server.url}/users`, {
         headers,
         params: {
-            pageSize,
+            pageSize: config.pagination.pageSize,
             pageNumber
         }
     });

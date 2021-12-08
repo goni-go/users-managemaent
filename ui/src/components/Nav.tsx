@@ -8,10 +8,6 @@ type Props = {
 }
 
 const Nav: React.FC<Props> = ({ credentials, setCredentials }) => {
-    // const logout = async () => {
-
-    // }
-
     let menu;
 
     if (!credentials.user) {

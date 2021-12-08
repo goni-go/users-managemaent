@@ -3,7 +3,8 @@ import { Redirect } from "react-router-dom";
 import { login } from '../utils/api';
 import { Credentials } from "../types/creds";
 import { AuthType } from '../types/user';
-import { isEmailValid, isPasswordValid, PASSWORD_MIN_LENGTH } from "../utils/validations";
+import { isEmailValid, isPasswordValid } from "../utils/validations";
+import config from "../utils/config";
 
 type Props = {
     setCredentials: (cred: Credentials) => void;
@@ -46,7 +47,7 @@ const Login: React.FC<Props> = ({ setCredentials }) => {
                    onChange={e => setUser({ ...user, email: e.target.value })}
             />
 
-            <input type="password" minLength={PASSWORD_MIN_LENGTH} className="form-control" placeholder="Password" required
+            <input type="password" minLength={config.user.passwordMinLength} className="form-control" placeholder="Password" required
                    onChange={e => setUser({ ...user, password: e.target.value })}
             />
 

@@ -12,6 +12,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { fetchUsersPagination } from '../utils/api';
 import { UserType } from '../types/user';
 import { Credentials } from '../types/creds';
+import config from "../utils/config";
 
 type Props = {
     credentials: Credentials
@@ -21,8 +22,6 @@ enum PageDirection {
     Next = 1,
     Prev = -1
 }
-
-const PAGE_SIZE = 15; // TODO use const
 
 const UsersGrid: React.FC<Props> = ({ credentials }) => {
     const [users, setUsers] = useState([] as UserType[]);
@@ -34,7 +33,7 @@ const UsersGrid: React.FC<Props> = ({ credentials }) => {
     }, [pageNumber]);
 
     useEffect(() => {
-        if (users.length < PAGE_SIZE) {
+        if (users.length < config.pagination.pageSize) {
             setShowNext(false);
         } else if (!showNext) {
             setShowNext(true);
@@ -43,7 +42,7 @@ const UsersGrid: React.FC<Props> = ({ credentials }) => {
   
     const fetchUsers = async (): Promise<void> => {
         try {
-            const usersForRequiredPage = await fetchUsersPagination(pageNumber, PAGE_SIZE, credentials.token);
+            const usersForRequiredPage = await fetchUsersPagination(pageNumber, credentials.token);
             if (usersForRequiredPage.length > 0) {
                 setUsers(usersForRequiredPage);
             }

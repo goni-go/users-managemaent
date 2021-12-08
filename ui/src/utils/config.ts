@@ -1,8 +1,6 @@
 const SERVER_PORT = process.env.SERVER_PORT || 8080;
 const SERVER_URL = process.env.SERVER_URL || `http://localhost:${SERVER_PORT}`;
-const SERVER_TOKEN_EXPIRETIME = process.env.SERVER_TOKEN_EXPIRETIME || 3600;
-const SERVER_TOKEN_ISSUER = process.env.SERVER_TOKEN_ISSUER || 'coolIssuer';
-const SERVER_TOKEN_SECRET = process.env.SERVER_TOKEN_SECRET || 'superencryptedsecret';
+const PASSWORD_MIN_LENGTH = process.env.PASSWORD_MIN_LENGTH ? parseInt(process.env.PASSWORD_MIN_LENGTH) : undefined;
 
 const config = {
     server: {
@@ -10,9 +8,15 @@ const config = {
         port: SERVER_PORT,
     },
     token: {
-        expireTime: SERVER_TOKEN_EXPIRETIME,
-        issuer: SERVER_TOKEN_ISSUER,
-        secret: SERVER_TOKEN_SECRET
+        expireTime: process.env.SERVER_TOKEN_EXPIRETIME || 3600,
+        issuer: process.env.SERVER_TOKEN_ISSUER || 'coolIssuer',
+        secret: process.env.SERVER_TOKEN_SECRET || 'superencryptedsecret'
+    },
+    pagination: {
+        pageSize: process.env.PAGE_SIZE || 15
+    },
+    user: {
+        passwordMinLength: PASSWORD_MIN_LENGTH || 5
     }
 };
 
